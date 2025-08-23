@@ -130,6 +130,8 @@ Definition of Done (Phase 1)
 - [ ] API key rotation via CMS (issue/disable/rotate)
 - [ ] Publish `od-schema` package for shared types and validators
 - [ ] Rebrandly custom domain + get-or-create short-link utility wired into outputs
+ - [ ] Centralized robots/sitemaps for stack with AI bot allowlist
+ - [ ] IndexNow pings on inventory changes
 
 Definition of Done (Phase 2)
 - LLM/consumer-friendly read APIs and JSON-LD feeds available and documented
@@ -149,6 +151,7 @@ Definition of Done (Phase 2)
   - [ ] SEO: titles, meta, OpenGraph, structured data validation
   - [ ] Performance: ISR, edge cache, image optimization
   - [ ] Accessibility and mobile UX
+  - [ ] Robots/canonicals to avoid SEO duplication with dealer sites
 - [ ] Dealer analytics dashboard
   - [ ] Clicks (Rebrandly), completeness %, freshness (updated_at)
   - [ ] Ingestion health, error rates, retry counts
@@ -164,6 +167,7 @@ Definition of Done (Phase 3)
 - [ ] Automated scraper deployment via Apify templates
 - [ ] Zero-code implementation via platform APIs (script injection + verification)
 - [ ] Partnerships (Google Vehicle Listings, Bing); internationalization
+ - [ ] Docs page for developers (feeds, update frequency, schema)
 
 Definition of Done (Phase 4)
 - Dealers self-serve from signup to activation; partnerships and intl ready
