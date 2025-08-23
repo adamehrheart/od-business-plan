@@ -2,15 +2,41 @@
 
 Version: 0.1 • Owner: Product • Last updated: $(date +%Y-%m-%d)
 
+## Product Mission
+Make every dealership instantly discoverable by AI and search—without ongoing manual work—by automating structured data, feeds, and discovery signals that route shoppers back to the dealer’s own site.
+
+## Product Vision
+An autonomous platform that ingests any dealer’s inventory, normalizes it into a canonical model, and continuously publishes LLM‑ready and search‑ready surfaces (APIs, JSON‑LD, sitemaps), with measurable traffic and revenue impact.
+
+## Product Principles
+- Outcomes over outputs; traffic and conversion back to the dealer’s site
+- Automation first; no bespoke services or agency work
+- Security and privacy by default; least privilege and minimal data
+- Versioned, measurable, observable systems
+- Open integrations; no lock‑in (canonical links to dealer VDPs)
+
+## Product Strategy (How we win)
+1. Hybrid discovery: dealer site remains canonical for Google/Bing; our stack powers AI assistants
+2. Quality and freshness: canonical schema + merge logic + sub‑5‑minute publishing
+3. Distribution signals: robots, sitemaps, IndexNow, and partner feeds (Google Vehicle Listings/Bing)
+4. Self‑service at scale: platform detection, automated scrapers, zero‑code snippet, and dashboards
+5. Proof and trust: analytics (clicks, completeness, freshness) and bot monitoring to demonstrate impact
+
 ## 1) Purpose (Why now)
 Enable local dealerships to become AI/LLM‑discoverable without ongoing manual SEO by providing a centralized, normalized data stack and lightweight dealer tooling.
 
-## 2) Business Objectives (12–18 months)
-- Revenue: $500K ARR (Year 1), $2M ARR (Year 2) [illustrative; validate post‑pilots]
-- Distribution: 100 live rooftops → 1,000 rooftops
-- Time‑to‑freshness: < 5 minutes from source change to public API/feed
-- Reliability: 99.9% uptime; < 0.1% ingestion failure rate/day
-- Quality: > 95% JSON‑LD validation pass rate; > 90% field completeness
+## Product Objectives & OKRs (12–18 months)
+Objectives
+- O1: Establish Open Dealer as the de facto AI discovery layer for local dealer inventory
+- O2: Prove measurable traffic impact back to dealer sites
+- O3: Deliver a self‑service platform that scales without services
+
+Key Results (illustrative—validate with pilots)
+- KR1: 100 live rooftops; 1,000 by year 2
+- KR2: Median freshness < 5 minutes; P95 < 15 minutes
+- KR3: > 95% valid JSON‑LD; > 90% completeness across core fields
+- KR4: ≥ 10% of inventory sessions attributable to AI/LLM sources
+- KR5: NPS ≥ 50; time‑to‑first‑publish ≤ 1 day from signup
 
 ## 3) Target Customers & Problems
 - Primary: US franchised and independent auto dealerships (marketing/GM/owner)
@@ -30,12 +56,21 @@ Enable local dealerships to become AI/LLM‑discoverable without ongoing manual 
 - Keep dealer site canonical for Google/Bing; use our stack for AI assistants
 - Provide click analytics via Rebrandly; merge data across sources by VIN+dealer
 
-## 6) Product Principles (Guardrails)
-- Traffic flows back to dealer’s canonical VDPs (no lock‑in)
-- Automation over services; no bespoke SEO engagements
-- Versioned, documented, measurable APIs and feeds
-- Privacy‑preserving analytics; least‑privilege access
-- Observability first: logs, metrics, validation at every stage
+## Product Scorecard (Core KPIs)
+Discovery
+- AI bot crawl frequency/day (GPTBot, ClaudeBot, Perplexity)
+- Dealer site vs stack citation ratio (Perplexity/Copilot tests)
+
+Freshness & Quality
+- Median and P95 ingestion → publish latency
+- JSON‑LD validation pass rate; field completeness
+
+Traffic & Adoption
+- Rebrandly short‑link clicks → dealer sessions
+- Rooftops onboarded/month; time‑to‑first‑publish
+
+Reliability
+- Uptime; failed ingestion jobs/day; retry success rate
 
 ## 7) Constraints & Assumptions
 - We do not modify third‑party dealer platforms beyond documented methods (snippet/GTM/API)
