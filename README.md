@@ -140,6 +140,10 @@ Open Dealer creates a centralized data stack that:
 3. **Dashboard MVP**: Basic SaaS management interface
 4. **Documentation**: Complete technical and business documentation
 
+## Roadmap
+
+See `ROADMAP.md` for phased delivery, current status, and links to specs.
+
 ---
 
 *Last updated: January 2025*
