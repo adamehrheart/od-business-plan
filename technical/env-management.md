@@ -25,7 +25,8 @@ This document provides a centralized approach to managing environment variables 
 - `OD_UPDATED_SINCE` - Default date filter (optional)
 
 ### **4. od-scheduler (Vercel)**
-- `DATABASE_URL` - PostgreSQL connection string
+- `OD_SUPABASE_URL` - Supabase project URL
+- `OD_SUPABASE_SERVICE_ROLE` - Supabase service role key
 - `OD_CMS_URL` - CMS API URL
 - `OD_DATA_API_URL` - Data API URL
 - `OD_SOAP_TRANSFORMER_URL` - SOAP Transformer URL
@@ -38,7 +39,7 @@ This document provides a centralized approach to managing environment variables 
 
 ## 🔧 **Management Strategies**
 
-### **Strategy 1: Vercel Environment Variables (Recommended)**
+### **Strategy 1: Vercel Environment Variables (Current)**
 
 Use Vercel's built-in environment variable management:
 
@@ -46,7 +47,7 @@ Use Vercel's built-in environment variable management:
 # List all environment variables for a project
 vercel env ls
 
-# Add environment variable to all projects
+# Add environment variable to a project
 vercel env add VARIABLE_NAME --scope=team
 
 # Pull environment variables to local .env
@@ -55,83 +56,51 @@ vercel env pull .env.local
 
 ### **Strategy 2: Centralized .env Template**
 
-Create a master `.env.template` file:
-
-```bash
-# Create master template
-cat > .env.template << 'EOF'
-# Database
-DATABASE_URL=postgresql://...
-DATABASE_URI=postgresql://...
-
-# CMS
-PAYLOAD_SECRET=your-secret-here
-PAYLOAD_PUBLIC_SERVER_URL=https://od-cms-vyw5b.ondigitalocean.app
-
-# APIs
-OD_CMS_URL=https://od-cms-vyw5b.ondigitalocean.app
-OD_DATA_API_URL=https://od-data-mw2q53faw-adam-ehrhearts-projects.vercel.app
-OD_SOAP_TRANSFORMER_URL=https://od-soap-transformer-1apzh4czq-adam-ehrhearts-projects.vercel.app
-
-# HomeNet
-OD_HOMENET_INTEGRATION_TOKEN=04f5a88f-6776-457f-bae1-f0256b03eb54
-OD_HOMENET_ROOFTOP_COLLECTION=13157
-
-# Rebrandly
-OD_REBRANDLY_ACCOUNT_ID=your-account-id
-OD_REBRANDLY_API_KEY=your-api-key
-
-# Supabase
-OD_SUPABASE_URL=your-supabase-url
-OD_SUPABASE_SERVICE_ROLE=your-service-role-key
-
-# Authentication
-OD_BEARER_TOKEN=opndlr_live_memv6bca310c5b9ff5be31a3.Y9qrg6BTlxXyxqnq9iXO9WlvAXNRGHP1
-OD_API_KEY_SECRET=od-secret-key-2024-08-22
-EOF
-```
+Create a master `.env.template` file for documentation only.
 
 ### **Strategy 3: Environment Management Script**
 
-Create a script to sync environment variables across projects:
+Use `scripts/sync-env.sh` to push common variables to Vercel across projects.
 
+## ✅ Recommended Backbone: Doppler + Per-Repo Validation
+
+- **Doppler** will be the single source of truth for secrets and envs.
+- **Zod** schemas in each repo validate required keys at startup (no secrets stored in code).
+
+### Doppler Setup
+1. Install CLI (done): `brew install dopplerhq/cli/doppler`
+2. Login (one-time, interactive): `doppler login`
+3. Create project and configs:
+   - Project: `open-dealer`
+   - Configs: `dev`, `staging`, `prod`
+4. Create services (suggested secrets folders):
+   - `od-data-api`, `od-soap-transformer`, `od-scheduler`, `od-docs`, `od-cms`
+5. Import variables from `.env.example` files for each repo; set actual values in Doppler.
+
+### Usage
+- Local dev:
 ```bash
-#!/bin/bash
-# sync-env.sh - Sync environment variables across projects
-
-PROJECTS=("od-data-api" "od-soap-transformer" "od-scheduler" "od-docs")
-
-# Function to sync a variable across all projects
-sync_variable() {
-    local var_name=$1
-    local var_value=$2
-    
-    echo "Syncing $var_name across all projects..."
-    
-    for project in "${PROJECTS[@]}"; do
-        echo "  Adding to $project..."
-        cd "../$project"
-        echo "$var_value" | vercel env add "$var_name" --scope=team
-        cd ..
-    done
-}
-
-# Sync common variables
-sync_variable "OD_CMS_URL" "https://od-cms-vyw5b.ondigitalocean.app"
-sync_variable "OD_DATA_API_URL" "https://od-data-mw2q53faw-adam-ehrhearts-projects.vercel.app"
-sync_variable "OD_SOAP_TRANSFORMER_URL" "https://od-soap-transformer-1apzh4czq-adam-ehrhearts-projects.vercel.app"
+doppler setup  # select project/config once
+doppler run -- npm run dev  # inject envs at runtime
 ```
+- CI:
+```yaml
+- uses: dopplerhq/cli-action@v2
+- run: doppler run -- npm run build
+```
+- Vercel:
+  - Use Doppler→Vercel integration or periodic sync: `doppler secrets download --no-file --format env > .env && vercel env import .env`
 
-## 🚀 **Recommended Approach**
+### Per-Repo Validation (Zod)
+- `od-data-api/src/env.ts`
+- `od-scheduler/src/env.ts`
+- `od-soap-transformer/src/env.ts`
 
-1. **Use Vercel Environment Variables** for all Vercel projects
-2. **Create a master .env.template** for documentation
-3. **Use environment management scripts** for bulk operations
-4. **Document all variables** in this file
+These enforce required keys (fail fast) but do not store secrets.
 
-## 📝 **Next Steps**
+### Naming Conventions
+- Prefix: `OD_*`
+- Consistent names across repos (no `DB_URL` vs `DATABASE_URL` duplicates)
 
-1. Create the master `.env.template` file
-2. Set up environment management scripts
-3. Document all current environment variables
-4. Implement automated syncing for common variables
+### Rotation
+- Rotate in Doppler → sync to Vercel/DO → restart deploys.
