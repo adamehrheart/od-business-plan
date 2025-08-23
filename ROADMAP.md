@@ -92,10 +92,10 @@ Phase 2 (Reads & Feeds)
 
 Phase 3 (Discovery & Dealer Tools)
 - Sitemaps per dealer
-- Redirect service + metrics
+- Rebrandly-managed short links + metrics (no custom redirect layer)
 - Embeddable JSON-LD snippet
 - Marketplace (public discovery)
- - Dealer analytics dashboard (clicks, completeness, freshness)
+- Dealer analytics dashboard (clicks, completeness, freshness)
 
 Phase 4 (Scale)
 - Multi-dealer onboarding flow
