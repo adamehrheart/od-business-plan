@@ -12,9 +12,7 @@ All endpoints are served from the same service and base URL.
 - **Base**: `https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app`
 
 ### Development
-- **Data API**: `http://localhost:3000`
-- **JSON-LD API**: `http://localhost:3000`
-- **Sitemap API**: `http://localhost:3000`
+- **Base**: `http://localhost:3000`
 
 ## Authentication
 
