@@ -79,6 +79,8 @@ Phase 1 (Pilot: single dealer)
 - Supabase schema + RLS
 - Data API POST /v1/vehicles/batch
 - Scheduler (Vercel Cron) for ingestion
+- Merge logic (composite key vin+dealerslug)
+- Rebrandly integration stub (optional cache table)
 
 Phase 2 (Reads & Feeds)
 - GET /api/v1/vehicles (scoped reads)
@@ -86,12 +88,14 @@ Phase 2 (Reads & Feeds)
 - Key rotation via CMS
 - Rate limiting & usage metrics
 - Publish `od-schema` package
+ - Rebrandly custom domain and short-link get-or-create utility
 
 Phase 3 (Discovery & Dealer Tools)
 - Sitemaps per dealer
 - Redirect service + metrics
 - Embeddable JSON-LD snippet
 - Marketplace (public discovery)
+ - Dealer analytics dashboard (clicks, completeness, freshness)
 
 Phase 4 (Scale)
 - Multi-dealer onboarding flow
