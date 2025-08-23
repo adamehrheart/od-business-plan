@@ -104,7 +104,62 @@ Phase 4 (Scale)
 - Internationalization
 
 ---
-## 6) Reference Spec (Condensed)
+## 6) Detailed Phase Checklists
+
+Legend: [x] Completed  [ ] Planned  [~] In progress / partial
+
+### Phase 1 – Pilot (Single Dealer)
+- [x] Supabase schema + RLS (vehicles table, indexes, policies)
+- [x] Data API: POST `/v1/vehicles/batch` with validation and merge-upsert by `(vin, dealerslug)`
+- [x] SOAP transformer deployed (HomeNet → normalized Vehicle[])
+- [x] Scheduler: Vercel Cron job triggers ingestion
+- [x] Authentication hardened (header checks, trimming, case-insensitive)
+- [x] Apify scrapers posting batches to Data API
+- [x] CMS: dealer slugs, UTM config, scheduled job management
+- [x] Deterministic `dealer_id` from `dealerslug` (UUIDv5)
+- [~] Rebrandly integration: columns + utility module added; end-to-end wiring pending
+
+Definition of Done (Phase 1)
+- Data reliably ingested for pilot dealer(s), persisted, deduplicated, and merge-upserted
+- Operational visibility via logs and job history; retries on transient failures
+
+### Phase 2 – Reads & Feeds
+- [ ] GET `/api/v1/vehicles` (scoped reads; filters + pagination)
+- [ ] JSON-LD per vehicle/dealer endpoints
+- [ ] Rate limiting and usage metrics per dealer
+- [ ] API key rotation via CMS (issue/disable/rotate)
+- [ ] Publish `od-schema` package for shared types and validators
+- [ ] Rebrandly custom domain + get-or-create short-link utility wired into outputs
+
+Definition of Done (Phase 2)
+- LLM/consumer-friendly read APIs and JSON-LD feeds available and documented
+- Observability and quotas in place; keys lifecycle managed via CMS
+
+### Phase 3 – Discovery & Dealer Tools
+- [ ] Sitemaps per dealer (XML + JSON variants)
+- [ ] Embeddable JSON-LD snippet for dealer sites
+- [ ] Marketplace (public discovery) with search and schema markup
+- [ ] Dealer analytics dashboard (clicks, completeness, freshness)
+- [ ] Rebrandly-managed short links visible in marketplace CTAs; canonical URLs in JSON-LD
+
+Definition of Done (Phase 3)
+- Dealers gain discovery and analytics out-of-the-box; marketplace live
+
+### Phase 4 – Scale & Self-Service
+- [ ] Multi-dealer onboarding flow (self-service)
+- [ ] Platform detection engine (Dealer.com, HomeNet, VinSolutions)
+- [ ] Automated scraper deployment via Apify templates
+- [ ] Zero-code implementation via platform APIs (script injection + verification)
+- [ ] Partnerships (Google Vehicle Listings, Bing); internationalization
+
+Definition of Done (Phase 4)
+- Dealers self-serve from signup to activation; partnerships and intl ready
+
+Notes
+- Deep detail per track: see Section 8 and `references/ProjectPlan.md`
+
+---
+## 7) Reference Spec (Condensed)
 
 Services
 - od-soap-transformer: serverless SOAP→JSON
@@ -132,14 +187,14 @@ CREATE INDEX ON redirect_events (vin);
 ```
 
 ---
-## 7) Open Risks & Mitigations
+## 8) Open Risks & Mitigations
 - Source variability (scrapers): use Apify; CSS selectors stored per platform in CMS
 - Auth/config sprawl: centralize env management; move to CMS (Phase 2)
 - Data quality: canonical schema + merge logic by (vin, dealerslug)
 - Rate limiting: enforce per dealer (Phase 2)
 
 ---
-## 8) Deep‑Dive Tracks (from prior plan)
+## 9) Deep‑Dive Tracks (from prior plan)
 
 These tracks retain the detailed design from the previous `ProjectPlan.md`. See `references/ProjectPlan.md` for full write‑ups.
 
@@ -172,6 +227,6 @@ These tracks retain the detailed design from the previous `ProjectPlan.md`. See 
 References: `references/ProjectPlan.md`
 
 ---
-## 9) Appendix
+## 10) Appendix
 - Sources: see business/market-analysis.md (NADA, OpenAI DevDay, etc.)
 - Strategic notes from ChatGPT briefing integrated into phases above
