@@ -138,9 +138,22 @@ Definition of Done (Phase 2)
 ### Phase 3 – Discovery & Dealer Tools
 - [ ] Sitemaps per dealer (XML + JSON variants)
 - [ ] Embeddable JSON-LD snippet for dealer sites
-- [ ] Marketplace (public discovery) with search and schema markup
-- [ ] Dealer analytics dashboard (clicks, completeness, freshness)
-- [ ] Rebrandly-managed short links visible in marketplace CTAs; canonical URLs in JSON-LD
+  - [ ] Snippet generator per dealer (includes canonical URL + UTM)
+  - [ ] Security: integrity attributes, CSP guidance, minimal surface
+  - [ ] Platform guides (Dealer.com, VinSolutions, generic HTML)
+  - [ ] Versioning & rollback strategy
+- [ ] Marketplace (public discovery)
+  - [ ] Index page with search (make/model/price/mileage)
+  - [ ] Dealer landing pages with inventory counts
+  - [ ] Per‑vehicle page with JSON‑LD and canonical dealer URL
+  - [ ] SEO: titles, meta, OpenGraph, structured data validation
+  - [ ] Performance: ISR, edge cache, image optimization
+  - [ ] Accessibility and mobile UX
+- [ ] Dealer analytics dashboard
+  - [ ] Clicks (Rebrandly), completeness %, freshness (updated_at)
+  - [ ] Ingestion health, error rates, retry counts
+  - [ ] Top performing listings and sources
+- [ ] Rebrandly‑managed short links for marketplace CTAs; JSON‑LD uses canonical URLs
 
 Definition of Done (Phase 3)
 - Dealers gain discovery and analytics out-of-the-box; marketplace live

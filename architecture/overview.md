@@ -101,6 +101,11 @@ interface VehicleV1 {
 - **Error Handling**: Retry logic for failed submissions
 - **Monitoring**: Success/failure tracking
 
+---
+### References
+- Dealer tools: see `technical/dealer-tools.md`
+- Marketplace: see `technical/marketplace.md`
+
 ## Deployment Architecture
 
 ### Production Stack
