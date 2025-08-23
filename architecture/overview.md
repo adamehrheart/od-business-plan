@@ -79,7 +79,8 @@ interface VehicleV1 {
 - **Rate Limiting**: Per-dealer quotas
 - **Response Format**: JSON with error handling
 
-#### JSON-LD API
+#### JSON-LD API (Planned)
+- **Status**: Planned (Phase 2)
 - **Purpose**: Structured data for LLM consumption
 - **Schema.org**: Vehicle and dealer markup
 - **Caching**: Aggressive caching for performance
@@ -87,7 +88,8 @@ interface VehicleV1 {
 
 ### 5. Discovery Layer
 
-#### Sitemap Generation
+#### Sitemap Generation (Planned)
+- **Status**: Planned (Phase 3)
 - **Automated Creation**: Real-time sitemap updates
 - **Multiple Formats**: XML, JSON, RSS feeds
 - **Priority Management**: Vehicle-specific priorities

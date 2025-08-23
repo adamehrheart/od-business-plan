@@ -4,12 +4,12 @@
 
 This document provides comprehensive API documentation for the Open Dealer platform, including endpoints, authentication, request/response formats, and examples.
 
-## Base URLs
+## Base URL
+
+All endpoints are served from the same service and base URL.
 
 ### Production
-- **Data API**: `https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app`
-- **JSON-LD API**: `https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app`
-- **Sitemap API**: `https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app`
+- **Base**: `https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app`
 
 ### Development
 - **Data API**: `http://localhost:3000`
@@ -36,7 +36,7 @@ curl -X POST https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1
   -d '{"vehicles": [...]}'
 ```
 
-## Data API Endpoints
+## Data API Endpoints (Current)
 
 ### POST /api/v1/vehicles/batch
 
@@ -99,76 +99,23 @@ Ingest vehicle data from external sources (HomeNet, scrapers, etc.).
 }
 ```
 
+> Reads endpoint note: General reads (`GET /api/v1/vehicles`) are planned and not yet available on the current deployment. See "Planned Endpoints" below.
+
+## Planned Endpoints (Future)
+
+The following endpoints are on the roadmap and will be introduced in future phases. They are not available on the current deployment.
+
 ### GET /api/v1/vehicles
 
 Retrieve vehicle data for a specific dealer.
 
-#### Query Parameters
-- `dealer_id` (required): Dealer slug
-- `limit` (optional): Number of results (default: 100, max: 1000)
-- `offset` (optional): Pagination offset (default: 0)
-- `make` (optional): Filter by make
-- `model` (optional): Filter by model
-- `year` (optional): Filter by year
-- `price_min` (optional): Minimum price
-- `price_max` (optional): Maximum price
-
-#### Example Request
-```bash
-curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/vehicles?dealer_id=rsm-honda&limit=50&make=Honda"
-```
-
-#### Response Format
-```json
-{
-  "vehicles": [
-    {
-      "id": "uuid-here",
-      "vin": "1HGBH41JXMN109186",
-      "make": "Honda",
-      "model": "Civic",
-      "year": 2023,
-      "price": 25000,
-      "mileage": 15000,
-      "fuel_type": "gas",
-      "transmission": "automatic",
-      "body_style": "sedan",
-      "drivetrain": "FWD",
-      "trim": "EX",
-      "stock_number": "H23-001",
-      "description": "2023 Honda Civic EX with advanced features",
-      "dealerurl": "https://www.rsmhondaonline.com/new/Honda/2023-Civic-EX",
-      "short_url": "https://links.opendealer.app/v1/llm/rsm-honda/1HGBH41JXMN109186",
-      "images": [
-        "https://example.com/image1.jpg",
-        "https://example.com/image2.jpg"
-      ],
-      "dealerslug": "rsm-honda",
-      "dealer_id": "uuid-here",
-      "source": "homenet",
-      "created_at": "2025-01-23T13:00:00Z",
-      "updated_at": "2025-01-23T13:00:00Z"
-    }
-  ],
-  "pagination": {
-    "total": 150,
-    "limit": 50,
-    "offset": 0,
-    "has_more": true
-  }
-}
-```
-
-## JSON-LD API Endpoints
+Status: Planned (Phase 2)
 
 ### GET /api/v1/jsonld/vehicle/{vin}
 
 Get structured data for a specific vehicle in JSON-LD format.
 
-#### Example Request
-```bash
-curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/jsonld/vehicle/1HGBH41JXMN109186"
-```
+Status: Planned (Phase 2)
 
 #### Response Format
 ```json
@@ -207,10 +154,7 @@ curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/jsonld
 
 Get structured data for a dealer in JSON-LD format.
 
-#### Example Request
-```bash
-curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/jsonld/dealer/rsm-honda"
-```
+Status: Planned (Phase 2)
 
 #### Response Format
 ```json
@@ -232,64 +176,9 @@ curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/jsonld
 }
 ```
 
-## Sitemap API Endpoints
+### Sitemap API (XML/JSON)
 
-### GET /api/v1/sitemap/{dealer_id}.xml
-
-Get XML sitemap for a specific dealer.
-
-#### Example Request
-```bash
-curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/sitemap/rsm-honda.xml"
-```
-
-#### Response Format
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.rsmhondaonline.com/new/Honda/2023-Civic-EX</loc>
-    <lastmod>2025-01-23T13:00:00Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.rsmhondaonline.com/new/Honda/2023-CRV-EX</loc>
-    <lastmod>2025-01-23T13:00:00Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-</urlset>
-```
-
-### GET /api/v1/sitemap/{dealer_id}.json
-
-Get JSON sitemap for a specific dealer.
-
-#### Example Request
-```bash
-curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/sitemap/rsm-honda.json"
-```
-
-#### Response Format
-```json
-{
-  "sitemap": [
-    {
-      "url": "https://www.rsmhondaonline.com/new/Honda/2023-Civic-EX",
-      "lastmod": "2025-01-23T13:00:00Z",
-      "changefreq": "daily",
-      "priority": 0.8
-    },
-    {
-      "url": "https://www.rsmhondaonline.com/new/Honda/2023-CRV-EX",
-      "lastmod": "2025-01-23T13:00:00Z",
-      "changefreq": "daily",
-      "priority": 0.8
-    }
-  ]
-}
-```
+Status: Planned (Phase 3)
 
 ## Error Handling
 
@@ -316,17 +205,7 @@ curl "https://od-data-ird8o7nf1-adam-ehrhearts-projects.vercel.app/api/v1/sitema
 
 ## Rate Limiting
 
-### Limits
-- **Data API**: 1000 requests per hour per dealer
-- **JSON-LD API**: 5000 requests per hour per dealer
-- **Sitemap API**: 100 requests per hour per dealer
-
-### Rate Limit Headers
-```
-X-RateLimit-Limit: 1000
-X-RateLimit-Remaining: 999
-X-RateLimit-Reset: 1642953600
-```
+Status: Planned (Phase 2)
 
 ## SDKs and Libraries
 

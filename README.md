@@ -66,9 +66,9 @@ Open Dealer creates a centralized data stack that:
 - **Caching Layer**: Redis for performance optimization
 
 #### 4. API Layer
-- **Data API**: RESTful endpoints for vehicle data
-- **JSON-LD Endpoints**: Schema.org structured data
-- **Feed Generation**: XML sitemaps and data feeds
+- **Data API**: RESTful endpoints for vehicle data (current: `POST /v1/vehicles/batch`)
+- **JSON-LD Endpoints**: Schema.org structured data (Planned – Phase 2)
+- **Feed Generation**: XML sitemaps and data feeds (Planned – Phase 3)
 - **Authentication**: Secure API key management
 
 #### 5. Discovery Layer

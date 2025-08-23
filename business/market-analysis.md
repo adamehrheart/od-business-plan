@@ -2,49 +2,46 @@
 
 ## Executive Summary
 
-The automotive dealership market represents a significant opportunity for Open Dealer, with over 18,000 dealerships in the United States alone. The market is undergoing a digital transformation, with AI-powered discovery becoming increasingly important for customer acquisition and sales conversion. Open Dealer is positioned to capture this opportunity by providing the first comprehensive AI-optimization solution specifically designed for automotive dealerships.
+The automotive dealership market represents a significant opportunity for Open Dealer. There are roughly 16–18K franchised new‑car dealerships in the United States, depending on the year and data source (see Sources). The market is undergoing a digital transformation, with AI-powered discovery becoming increasingly important for customer acquisition and sales conversion. Open Dealer is positioned to capture this opportunity by providing a comprehensive AI-optimization solution specifically designed for automotive dealerships.
 
 ## Market Size & Opportunity
 
 ### Total Addressable Market (TAM)
-- **US Dealerships**: 18,000+ franchised and independent dealerships
-- **Average Annual Revenue**: $50M per dealership
-- **Total Market Value**: $900B+ in annual vehicle sales
-- **Digital Marketing Spend**: $2.7B annually (3% of revenue)
+- **US Dealerships (franchised)**: ~16,000–18,000
+  - Source: NADA Data (latest annual report; franchised count varies by year). [NADA Data – Dealerships and Employment](https://www.nada.org/nada/industry-analytics/nada-data) (link to landing; cite latest PDF when finalized)
+- **Average Annual Revenue per franchised dealership**: multi‑tens of millions (varies widely by group/region)
+  - Note: Specific per‑store revenue varies; use dealer‑group public filings when needed for precision.
+- **Digital Ad Spend (dealers)**: multi‑billion annually
+  - Example directional source: Borrell Associates’ annual automotive advertising spend reports. [Borrell Associates – Auto Advertising](https://borrellassociates.com) (requires subscription; cite year when used)
 
 ### Serviceable Addressable Market (SAM)
-- **Target Dealerships**: 5,000+ mid to large-scale dealerships
-- **Average Digital Marketing Budget**: $150K annually
-- **SAM Value**: $750M in digital marketing spend
-- **AI/SEO Focus**: $150M (20% of digital marketing)
+- **Target Dealerships**: 5,000+ mid to large-scale dealerships (directional)
+- **Average Digital Marketing Budget**: varies by size; cite per‑dealership estimates when available in Borrell/industry sources
+- **SAM Value**: to be refined with current year Borrell/market data
+- **AI/SEO Focus**: estimate as a share of digital budget; refine with primary interviews
 
 ### Serviceable Obtainable Market (SOM)
-- **Year 1 Target**: 100 dealerships
-- **Year 3 Target**: 1,000 dealerships
-- **Average Contract Value**: $5K annually
-- **SOM Value**: $5M by Year 3
+- **Year 1 Target**: 100 dealerships (goal)
+- **Year 3 Target**: 1,000 dealerships (goal)
+- **Average Contract Value (ACV)**: placeholder $5K annually (to be validated with pilots)
+- **SOM Value**: illustrative; refine with pilot pricing and conversion data
 
 ## Market Dynamics
 
 ### Growth Drivers
 
-#### 1. AI-Powered Search Dominance
-- **ChatGPT Usage**: 100M+ monthly active users
-- **AI Search Growth**: 40% year-over-year increase
-- **Voice Search**: 50% of searches will be voice by 2025
-- **AI Discovery**: 70% of consumers use AI for product research
+#### 1. AI-Powered Search & Assistants (Directional)
+- **ChatGPT scale**: OpenAI has publicly announced 100M+ weekly active users (DevDay 2023 keynote). [OpenAI DevDay (Nov 2023)](https://openai.com/blog/devday)
+- **AI search growth**: Directional; quantify per provider (e.g., Perplexity traffic, Search Generative Experience). Add provider‑specific sources as used.
+- **Voice/assistants**: Use Google, Microsoft, and industry reports for current adoption; update with current-year sources.
 
-#### 2. Automotive Industry Digitalization
-- **Online Car Shopping**: 80% of car buyers research online first
-- **Digital-First Consumers**: 60% prefer digital interactions
-- **Mobile Commerce**: 70% of automotive searches are mobile
-- **E-commerce Growth**: 15% annual growth in online auto sales
+#### 2. Automotive Industry Digitalization (Directional)
+- **Research online**: Use Think with Google/industry research; cite specific studies when quoted.
+- **Mobile share**: Cite Google Ads/Think with Google or similar.
+- **E‑commerce trends**: Cite OEM/dealer digital retailing reports.
 
 #### 3. SEO & Discoverability Challenges
-- **Technical SEO Gap**: 90% of dealer websites lack proper structured data
-- **AI Optimization**: 95% of dealer sites not optimized for AI discovery
-- **Content Quality**: 85% of dealer content is not LLM-friendly
-- **Search Visibility**: 60% of dealer inventory not discoverable via AI
+- Use defensible statements and avoid unsourced percentages. Replace with: “A significant portion of dealer websites lack comprehensive structured data and LLM‑friendly content,” then support with sample audits and references.
 
 ## Market Segmentation
 
@@ -136,20 +133,13 @@ The automotive dealership market represents a significant opportunity for Open D
 
 ### Customer Interviews
 
-#### Interview Summary (20 dealerships)
-- **Pain Point Confirmation**: 95% confirmed discoverability issues
-- **Solution Interest**: 85% interested in AI optimization solution
-- **Budget Availability**: 70% have budget for AI solutions
-- **Implementation Timeline**: 60% ready to implement within 6 months
+#### Interview Summary (Pilot/Discovery)
+- Replace placeholder percentages with actual interview counts and dates once collected.
 
 ### Pilot Program Results
 
-#### RSM Honda Pilot
-- **Implementation Time**: 2 weeks
-- **Data Quality**: 95% completeness score
-- **Performance**: Sub-5 minute data freshness
-- **Cost Savings**: 80% reduction in manual SEO work
-- **ROI**: 300% return within 3 months
+#### RSM Honda Pilot (In Progress)
+- Document measured metrics only. Add screenshots/URLs and timestamps.
 
 ## Success Metrics
 
@@ -158,10 +148,15 @@ The automotive dealership market represents a significant opportunity for Open D
 - **Year 3**: 5% market share (1,000 dealerships)
 - **Year 5**: 15% market share (3,000 dealerships)
 
-### Revenue Growth
-- **Year 1**: $500K ARR
-- **Year 3**: $5M ARR
-- **Year 5**: $15M ARR
+### Revenue Growth (Illustrative Targets)
+- Validate after initial pilots and pricing tests.
+## Sources & References
+
+- NADA Data – annual industry report on franchised dealerships and employment. Landing: https://www.nada.org/nada/industry-analytics/nada-data (link to the latest year PDF when used)
+- OpenAI DevDay (Nov 2023) – keynote disclosed 100M weekly active users: https://openai.com/blog/devday
+- Borrell Associates – Automotive advertising spend (subscription): https://borrellassociates.com
+- Think with Google – Automotive shopper insights (use specific articles/studies with dates): https://www.thinkwithgoogle.com
+- Add OEM/dealer group annual reports and investor presentations where relevant; cite document name, date, and page.
 
 ### Customer Metrics
 - **Customer Acquisition Cost**: <$2,000
