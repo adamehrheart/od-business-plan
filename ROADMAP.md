@@ -139,6 +139,39 @@ CREATE INDEX ON redirect_events (vin);
 - Rate limiting: enforce per dealer (Phase 2)
 
 ---
-## 8) Appendix
+## 8) Deep‑Dive Tracks (from prior plan)
+
+These tracks retain the detailed design from the previous `ProjectPlan.md`. See `references/ProjectPlan.md` for full write‑ups.
+
+1. Self‑Service Onboarding (Phase 3–4)
+   - Platform Detection Engine (Dealer.com, HomeNet, VinSolutions)
+   - Credential collection & validation (OAuth where supported)
+   - Automated scraper deployment via Apify templates
+   - Snippet generation, payment (Stripe), activation, monitoring
+
+2. Zero‑Code Implementation (Phase 3–4)
+   - Platform API script injection, verification, fallback strategies
+   - Performance monitoring, update management, error recovery
+
+3. Dealer Dashboard (Phase 3–4)
+   - Ingestion health, data quality/completeness, analytics, billing
+   - Support workflow and documentation integration
+
+4. Link Management & Analytics (Phase 2–3)
+   - Rebrandly custom domain (`links.opendealer.app`) get‑or‑create utility
+   - Optional cache table for short‑link mappings; click metrics via Rebrandly API
+   - JSON‑LD uses canonical dealer URLs; marketplace CTAs use short links
+
+5. Reads & Feeds (Phase 2)
+   - Scoped `GET /api/v1/vehicles`, JSON‑LD endpoints, rate limiting, usage metrics
+
+6. Infra, Monitoring & Ops (Phase 2–4)
+   - Env/secrets management, scheduled jobs, alerting, backups
+   - RLS alignment with API keys and per‑dealer scoping
+
+References: `references/ProjectPlan.md`
+
+---
+## 9) Appendix
 - Sources: see business/market-analysis.md (NADA, OpenAI DevDay, etc.)
 - Strategic notes from ChatGPT briefing integrated into phases above
