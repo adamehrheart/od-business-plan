@@ -30,6 +30,7 @@ setup:
 # Core Configuration
 OD_SUPABASE_URL=postgresql://...
 OD_SUPABASE_SERVICE_ROLE=eyJ...
+OD_SUPABASE_PASSWORD=your-supabase-password
 OD_API_KEY_SIGNING_SECRET=your-signing-secret
 OD_DEFAULT_DEALER_ID=5eb88852-0caa-5656-8a7b-aab53e5b1847
 
@@ -76,6 +77,7 @@ PAYLOAD_PUBLIC_SERVER_URL=http://localhost:3000
 
 # Database
 DATABASE_URI=postgresql://...
+OD_SUPABASE_CMS_DB_PASSWORD=your-cms-db-password
 
 # Development
 NODE_ENV=development
@@ -121,7 +123,7 @@ doppler run -- npm run dev
 
 ### What Goes in Doppler (Secrets)
 - **Integration Tokens**: HomeNet, Rebrandly, Apify
-- **Database Credentials**: Supabase URLs and service roles
+- **Database Credentials**: Supabase URLs, service roles, and passwords
 - **API Keys**: Signing secrets, service-to-service keys
 - **OAuth Secrets**: Platform integration credentials
 
