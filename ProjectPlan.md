@@ -92,6 +92,10 @@ Phase 1 — POC (Single Dealer) → **Evolving to Self-Service Platform**
 #### Recent Major Accomplishments (Latest Sprint)
 | Task | Repo | Definition of Done | Status |
 |------|------|---------------------|--------|
+| **Core Infrastructure Fixes & Deployment** | All repos | Fixed NPM token authentication, published schema v0.1.9, deployed Data API as serverless function | ✅ **COMPLETED** |
+| **Schema Validation Fixes** | od-schema | Fixed empty string handling for transmission, body_style, drivetrain fields; published v0.1.9 | ✅ **COMPLETED** |
+| **Data API Serverless Deployment** | od-data-api | Fixed Vercel deployment as serverless function, removed build script, updated schema dependency | ✅ **COMPLETED** |
+| **Codebase Cleanup & Security** | od-scheduler | Removed 30+ test scripts, replaced hardcoded tokens with Doppler environment variables | ✅ **COMPLETED** |
 | **Job Queue Robustness & Error Handling** | od-scheduler | Enterprise-grade job queue with circuit breakers, conflict resolution, and comprehensive monitoring | ✅ **COMPLETED** |
 | **Enhanced URL Shortening with Conflict Resolution** | od-scheduler | Slashtag conflict resolution, unique generation, rate limiting, and duplicate detection | ✅ **COMPLETED** |
 | **Product Detail Scraping Error Handling** | od-scheduler | Comprehensive null checks, Promise.allSettled, and graceful error handling | ✅ **COMPLETED** |
