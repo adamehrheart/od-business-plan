@@ -22,7 +22,7 @@ An autonomous platform that ingests any dealer’s inventory, normalizes it into
 4. Self‑service at scale: platform detection, automated scrapers, zero‑code snippet, and dashboards
 5. Proof and trust: analytics (clicks, completeness, freshness) and bot monitoring to demonstrate impact
 
-## 1) Purpose (Why now)
+## 1) Purpose (Why now)    
 Enable local dealerships to become AI/LLM‑discoverable without ongoing manual SEO by providing a centralized, normalized data stack and lightweight dealer tooling.
 
 ## Product Objectives & OKRs (12–18 months)

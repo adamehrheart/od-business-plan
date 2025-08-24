@@ -1,137 +1,252 @@
-# Open Dealer Environment Management
+# Environment Management
 
-## 🎯 **Centralized Environment Variables Management**
+## Overview
 
-This document provides a centralized approach to managing environment variables across all Open Dealer projects.
+Open Dealer uses **Doppler** for centralized environment variable management across all services. This ensures consistent configuration, secure secret management, and simplified development workflows.
 
-## 📋 **Current Projects & Their Environment Variables**
+## 🚀 **Current Status: Doppler Integration Complete**
 
-### **1. od-cms (Digital Ocean)**
-- `DATABASE_URI` - PostgreSQL connection string
-- `PAYLOAD_SECRET` - PayloadCMS encryption key
-- `PAYLOAD_PUBLIC_SERVER_URL` - Public CMS URL
+All services now use Doppler for environment management:
+- ✅ **Centralized Configuration**: All environment variables managed through Doppler
+- ✅ **IDE Integration**: VS Code/Cursor and Warp terminal configured
+- ✅ **Development Workflow**: Automated scripts for building and starting services
+- ✅ **Security**: No local .env files in repositories
+- ✅ **Multi-Environment**: Support for dev, staging, and production configurations
 
-### **2. od-data-api (Vercel)**
-- `OD_SUPABASE_URL` - Supabase project URL
-- `OD_SUPABASE_SERVICE_ROLE` - Supabase service role key
-- `OD_CMS_URL` - CMS API URL
-- `OD_REBRANDLY_ACCOUNT_ID` - Rebrandly account ID
-- `OD_REBRANDLY_API_KEY` - Rebrandly API key
-- `OD_API_KEY_SECRET` - API key for vehicle ingestion authentication
+## 🔧 **Doppler Setup**
 
-### **3. od-soap-transformer (Vercel)**
-- `OD_HOMENET_INTEGRATION_TOKEN` - HomeNet API token
-- `OD_HOMENET_ROOFTOP_COLLECTION` - HomeNet rooftop ID
-- `OD_UPDATED_SINCE` - Default date filter (optional)
-
-### **4. od-scheduler (Vercel)**
-- `DATABASE_URL` - PostgreSQL connection string
-- `OD_CMS_URL` - CMS API URL
-- `OD_DATA_API_URL` - Data API URL
-- `OD_SOAP_TRANSFORMER_URL` - SOAP Transformer URL
-- `OD_BEARER_TOKEN` - API authentication token
-- `OD_API_KEY_SECRET` - API key for Data API authentication
-
-### **5. od-docs (Vercel)**
-- `VERCEL_USERNAME` - Basic auth username
-- `VERCEL_PASSWORD` - Basic auth password
-
-## 🔧 **Management Strategies**
-
-### **Strategy 1: Vercel Environment Variables (Recommended)**
-
-Use Vercel's built-in environment variable management:
-
-```bash
-# List all environment variables for a project
-vercel env ls
-
-# Add environment variable to all projects
-vercel env add VARIABLE_NAME --scope=team
-
-# Pull environment variables to local .env
-vercel env pull .env.local
+### Project Configuration
+```yaml
+# .doppler.yaml (project root)
+setup:
+  project: open-dealer
+  config: dev
 ```
 
-### **Strategy 2: Centralized .env Template**
+### Environment Variables by Service
 
-Create a master `.env.template` file:
-
+#### Data API (`od-data-api`)
 ```bash
-# Create master template
-cat > .env.template << 'EOF'
+# Core Configuration
+OD_SUPABASE_URL=postgresql://...
+OD_SUPABASE_SERVICE_ROLE=eyJ...
+OD_API_KEY_SIGNING_SECRET=your-signing-secret
+OD_DEFAULT_DEALER_ID=5eb88852-0caa-5656-8a7b-aab53e5b1847
+
+# Rebrandly Integration
+OD_REBRANDLY_API_KEY=your-rebrandly-api-key
+OD_REBRANDLY_DOMAIN=links.opendealer.app
+
+# Development
+OD_AUTH_DEV_COMPAT=1
+OD_LOG_LEVEL=info
+OD_DEV_SERVER=1
+```
+
+#### SOAP Transformer (`od-soap-transformer`)
+```bash
+# HomeNet Integration
+OD_HOMENET_INTEGRATION_TOKEN=your-homenet-token
+OD_HOMENET_ROOFTOP_COLLECTION=your-rooftop-id
+
+# Development
+OD_DEV_SERVER=1
+OD_LOG_LEVEL=info
+```
+
+#### Scheduler (`od-scheduler`)
+```bash
+# Job Configuration
+OD_SCHEDULER_ENABLED=1
+OD_CLEANUP_ENABLED=1
+
+# API Keys
+OD_DATA_API_KEY=your-data-api-key
+OD_CMS_API_KEY=your-cms-api-key
+
+# Development
+OD_LOG_LEVEL=info
+```
+
+#### CMS (`od-cms`)
+```bash
+# Payload Configuration
+PAYLOAD_SECRET=your-payload-secret
+PAYLOAD_PUBLIC_SERVER_URL=http://localhost:3000
+
 # Database
-DATABASE_URL=postgresql://...
 DATABASE_URI=postgresql://...
 
-# CMS
-PAYLOAD_SECRET=your-secret-here
-PAYLOAD_PUBLIC_SERVER_URL=https://od-cms-vyw5b.ondigitalocean.app
-
-# APIs
-OD_CMS_URL=https://od-cms-vyw5b.ondigitalocean.app
-OD_DATA_API_URL=https://od-data-mw2q53faw-adam-ehrhearts-projects.vercel.app
-OD_SOAP_TRANSFORMER_URL=https://od-soap-transformer-1apzh4czq-adam-ehrhearts-projects.vercel.app
-
-# HomeNet
-OD_HOMENET_INTEGRATION_TOKEN=04f5a88f-6776-457f-bae1-f0256b03eb54
-OD_HOMENET_ROOFTOP_COLLECTION=13157
-
-# Rebrandly
-OD_REBRANDLY_ACCOUNT_ID=your-account-id
-OD_REBRANDLY_API_KEY=your-api-key
-
-# Supabase
-OD_SUPABASE_URL=your-supabase-url
-OD_SUPABASE_SERVICE_ROLE=your-service-role-key
-
-# Authentication
-OD_BEARER_TOKEN=opndlr_live_memv6bca310c5b9ff5be31a3.Y9qrg6BTlxXyxqnq9iXO9WlvAXNRGHP1
-OD_API_KEY_SECRET=od-secret-key-2024-08-22
-EOF
+# Development
+NODE_ENV=development
 ```
 
-### **Strategy 3: Environment Management Script**
+## 🛠️ **Development Workflow**
 
-Create a script to sync environment variables across projects:
-
+### Starting Services
 ```bash
-#!/bin/bash
-# sync-env.sh - Sync environment variables across projects
+# Use the development script
+./scripts/dev.sh [service]
 
-PROJECTS=("od-data-api" "od-soap-transformer" "od-scheduler" "od-docs")
-
-# Function to sync a variable across all projects
-sync_variable() {
-    local var_name=$1
-    local var_value=$2
-    
-    echo "Syncing $var_name across all projects..."
-    
-    for project in "${PROJECTS[@]}"; do
-        echo "  Adding to $project..."
-        cd "../$project"
-        echo "$var_value" | vercel env add "$var_name" --scope=team
-        cd ..
-    done
-}
-
-# Sync common variables
-sync_variable "OD_CMS_URL" "https://od-cms-vyw5b.ondigitalocean.app"
-sync_variable "OD_DATA_API_URL" "https://od-data-mw2q53faw-adam-ehrhearts-projects.vercel.app"
-sync_variable "OD_SOAP_TRANSFORMER_URL" "https://od-soap-transformer-1apzh4czq-adam-ehrhearts-projects.vercel.app"
+# Available services: data-api, transformer, scheduler, cms
+./scripts/dev.sh data-api
+./scripts/dev.sh transformer
+./scripts/dev.sh scheduler
+./scripts/dev.sh cms
 ```
 
-## 🚀 **Recommended Approach**
+### Manual Service Startup
+```bash
+# Data API
+cd od-data-api
+doppler run -- npm run build
+doppler run -- npm run start:dev
 
-1. **Use Vercel Environment Variables** for all Vercel projects
-2. **Create a master .env.template** for documentation
-3. **Use environment management scripts** for bulk operations
-4. **Document all variables** in this file
+# SOAP Transformer
+cd od-soap-transformer
+doppler run -- npm run build
+doppler run -- OD_DEV_SERVER=1 doppler run -- node dist/index.js
 
-## 📝 **Next Steps**
+# Scheduler
+cd od-scheduler
+doppler run -- npm run build
+doppler run -- node dist/src/scheduler.js
 
-1. Create the master `.env.template` file
-2. Set up environment management scripts
-3. Document all current environment variables
-4. Implement automated syncing for common variables
+# CMS
+cd od-cms
+doppler run -- npm run dev
+```
+
+## 🔒 **Security Principles**
+
+### What Goes in Doppler (Secrets)
+- **Integration Tokens**: HomeNet, Rebrandly, Apify
+- **Database Credentials**: Supabase URLs and service roles
+- **API Keys**: Signing secrets, service-to-service keys
+- **OAuth Secrets**: Platform integration credentials
+
+### What Goes in Database (Configuration)
+- **Dealer Information**: Names, domains, platform hints
+- **Rooftop IDs**: Per-dealer configuration (not secrets)
+- **API Filters**: Per-dealer overrides and preferences
+- **Merge Priorities**: Data source preferences
+
+### What Goes in Code (Constants)
+- **Feature Flags**: Development toggles
+- **Log Levels**: Debugging configuration
+- **Timeouts**: Service-specific timeouts
+- **Rate Limits**: API throttling configuration
+
+## 🚫 **Legacy Environment Files (Removed)**
+
+All legacy environment files have been removed:
+- ❌ `.env` files
+- ❌ `.env.example` files
+- ❌ `.env.local` files
+- ❌ Shell environment variables
+
+## 🔄 **Environment Rotation**
+
+### Integration Token Rotation
+1. **Update in Doppler**: Rotate the token in Doppler dashboard
+2. **Redeploy Services**: Services automatically pick up new values
+3. **Verify Functionality**: Test affected integrations
+4. **Update Documentation**: Update any hardcoded references
+
+### API Key Rotation
+1. **Generate New Keys**: Create new API keys in CMS
+2. **Update Doppler**: Store new signing secrets
+3. **Notify Dealers**: Provide new API keys to dealers
+4. **Monitor Usage**: Ensure smooth transition
+
+## 📊 **Monitoring & Logging**
+
+### Environment Variable Validation
+All services validate required environment variables on startup:
+```typescript
+// Example validation in od-data-api/src/env.ts
+export const env = z.object({
+  OD_SUPABASE_URL: z.string().url(),
+  OD_SUPABASE_SERVICE_ROLE: z.string(),
+  OD_API_KEY_SIGNING_SECRET: z.string().min(32),
+  OD_REBRANDLY_API_KEY: z.string().optional(),
+}).parse(process.env);
+```
+
+### Health Checks
+Each service includes environment validation in health checks:
+```bash
+# Data API Health Check
+curl http://localhost:3002/health
+
+# SOAP Transformer Health Check
+curl http://localhost:3001/health
+
+# Scheduler Health Check
+curl http://localhost:3003/health
+```
+
+## 🚀 **Production Deployment**
+
+### Vercel Integration
+Vercel projects automatically use Doppler environment variables:
+```bash
+# Vercel CLI with Doppler
+vercel --env-file .env.production
+
+# Or use Doppler directly
+doppler run -- vercel --prod
+```
+
+### Digital Ocean Integration
+Digital Ocean App Platform uses Doppler secrets:
+```bash
+# Deploy with Doppler
+doppler run -- doctl apps create --spec app.yaml
+```
+
+## 📚 **IDE Integration**
+
+### VS Code/Cursor Configuration
+```json
+// .vscode/settings.json
+{
+  "terminal.integrated.env.osx": {
+    "DOPPLER_PROJECT": "open-dealer",
+    "DOPPLER_CONFIG": "dev"
+  },
+  "files.exclude": {
+    "**/.env*": true
+  }
+}
+```
+
+### Warp Terminal Integration
+```bash
+# Add to ~/.zprofile
+export DOPPLER_PROJECT=open-dealer
+export DOPPLER_CONFIG=dev
+```
+
+## 🔧 **Troubleshooting**
+
+### Common Issues
+1. **Doppler Not Found**: Install Doppler CLI
+2. **Permission Denied**: Check Doppler project access
+3. **Missing Variables**: Verify all required variables in Doppler
+4. **Service Won't Start**: Check environment validation errors
+
+### Debug Commands
+```bash
+# Check Doppler configuration
+doppler configure
+
+# List all environment variables
+doppler secrets list
+
+# Test environment loading
+doppler run -- env | grep OD_
+
+# Validate service environment
+doppler run -- npm run validate-env
+```
