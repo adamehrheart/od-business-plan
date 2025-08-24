@@ -247,3 +247,20 @@ References: `references/ProjectPlan.md`
 ## 10) Appendix
 - Sources: see business/market-analysis.md (NADA, OpenAI DevDay, etc.)
 - Strategic notes from ChatGPT briefing integrated into phases above
+
+## Phase: Async Pipeline & Distribution (Next 4–8 weeks)
+- Implement DB-backed queues (`job_queue`) with idempotency and backoff
+- Add `vehicle_links` cache table and url_shortening worker
+- Add geocoding worker to populate dealer `location` (lat/lng)
+- Add IndexNow pinger job on create/update/sold
+- Enforce source isolation in ingestion; reject mixed-source batches
+- Implement nearby search (lat,lng,radius) + distance in responses
+- Update JSON-LD to include `offeredBy` PostalAddress + GeoCoordinates
+- Configure robots: stack allows GPTBot/Claude/Perplexity; dealer site for Google/Bing
+- Publish sitemaps per object type with `lastmod`; strong ETag/Last-Modified on feeds
+
+## Phase: Scale & Partners (Following 4–8 weeks)
+- Rate-limit aware batching for Rebrandly and geocoding
+- Introduce DLQ and operational dashboards (queue depth/age, success rates)
+- Prepare Google Vehicle Listings partner feed for Gemini placement
+- Evaluate migration from DB queue to managed queue (SQS/Pub/Sub) if needed

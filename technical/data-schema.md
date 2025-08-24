@@ -209,6 +209,68 @@ Supabase → Data API → JSON-LD → LLM Discovery
 - **Filtering**: Efficient WHERE clauses
 - **Projection**: Select only needed fields
 
+## Async Queue & Link Caching Schema (NEW)
+
+### Queue Table
+```sql
+CREATE TABLE job_queue (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  task_type TEXT NOT NULL,             -- url_shortening | geocode | indexnow_ping | feature_normalization
+  dealer_id UUID,
+  vin TEXT,
+  payload JSONB,
+  status TEXT NOT NULL DEFAULT 'pending', -- pending | processing | done | failed | dead
+  attempts INT NOT NULL DEFAULT 0,
+  next_run_at TIMESTAMPTZ DEFAULT NOW(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX job_queue_status_idx ON job_queue (status, next_run_at);
+CREATE INDEX job_queue_type_idx ON job_queue (task_type);
+CREATE UNIQUE INDEX job_queue_idem_idx ON job_queue ((COALESCE(dealer_id::text,'')||'|'||COALESCE(vin,'')||'|'||task_type));
+```
+
+### Vehicle Links Cache
+```sql
+CREATE TABLE vehicle_links (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  dealer_id UUID NOT NULL,
+  vin TEXT NOT NULL,
+  target_url TEXT NOT NULL,
+  short_url TEXT,
+  rebrandly_id TEXT,
+  status TEXT NOT NULL DEFAULT 'pending',
+  attempts INT NOT NULL DEFAULT 0,
+  last_attempt_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (dealer_id, vin)
+);
+CREATE INDEX vehicle_links_dealer_idx ON vehicle_links (dealer_id);
+CREATE INDEX vehicle_links_vin_idx ON vehicle_links (vin);
+```
+
+### Dealer Geo Fields
+```sql
+ALTER TABLE dealers
+  ADD COLUMN IF NOT EXISTS street_address TEXT,
+  ADD COLUMN IF NOT EXISTS address_locality TEXT,
+  ADD COLUMN IF NOT EXISTS address_region TEXT,
+  ADD COLUMN IF NOT EXISTS postal_code TEXT,
+  ADD COLUMN IF NOT EXISTS address_country TEXT,
+  ADD COLUMN IF NOT EXISTS phone TEXT,
+  ADD COLUMN IF NOT EXISTS website TEXT,
+  ADD COLUMN IF NOT EXISTS same_as TEXT[];
+
+-- Geo point for proximity search (requires PostGIS)
+ALTER TABLE dealers
+  ADD COLUMN IF NOT EXISTS location geography(Point, 4326);
+CREATE INDEX dealers_location_gix ON dealers USING GIST (location);
+```
+
+### API Additions
+- Nearby search: `GET /v1/vehicles?lat=&lng=&radius=` → returns vehicles sorted by distance and includes `distance`.
+- Feeds include `offeredBy` with `PostalAddress` and `GeoCoordinates` when available.
+
 ---
 
 *This schema is designed to be flexible, performant, and maintainable while supporting the Open Dealer platform's growth and evolution.*
