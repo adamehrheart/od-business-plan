@@ -1,3 +1,11 @@
+# Archived
+
+This repo is archived. Current docs live in the Open Dealer platform repo:
+- docs/ARCHITECTURE.md
+- docs/ROADMAP.md
+
+---
+
 # Open Dealer - Business Plan & Architecture
 
 ## Overview
